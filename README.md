@@ -1,38 +1,35 @@
-EmailService
-============
-It's self learning project to get knowledge with microservices.
-Microservice architecture, or simply microservices, is a distinctive method of developing software systems.
+SenderService
+=============
+It's self learning project to get knowledge with microservices. 
 
-Micro Framework for Microservices - it's simple!
-------------------------------------------------
-Micro Framework gives us the opportunity to take advantage of the basic components and create their own application architecture (with all its consequences).
+This application is part of architectural services consisting of:
+- SenderService (this)
+- EmailService `https://github.com/tarnawski/symfony-microkernel.git`
+- Kafka `https://github.com/tarnawski/kafka.git`
 
-Symfony Microkernel
--------------------
-The best thing about the Symfony microframework is that you are building your application on the shoulders of Symfony, meaning that you won't face any of the usual restrictions of the microframeworks. All the incredible Symfony features and bundles are ready to use in case you need them as your application grows.
+## Flow:    
+
+1. When new email appear in EmailService microservice
+2. EmailService automatically report status "CHANGED" to Kafka
+3. SenderService react to status "CHANGED" from Kafka and synchronize local database
+3. SenderService send email message to new emails in database
+
+But it can be a stand-alone service for sending e-mails from the fetched address list
 
 ###Getting started
 
 In order to set up this application you need clone this repo:
 
-```git clone https://github.com/tarnawski/symfony-microkernel.git```
+```git clone https://github.com/tarnawski/SenderService.git```
 
 And you have to install dependencies:
 
 ```
-cd symfony-microkernel
+cd senderservice
 
 composer install
 ```
 
-####1. The quickest way to set up
-
-Just create database and run PHP server:
-
-```
-php bin/console doctrine:schema:create --force
-php -S localhost:8001
-```
 
 ####2. Run with Vagrant and prepared environment:
 
@@ -47,67 +44,44 @@ vagrant ssh
 cd /var/www/emailservice/
 ```
 
-Creating schema:
-```
-php bin/console doctrine:schema:create --force
-```  
 
-Add to your hosts:
-```
-10.0.0.200 emailservice.dev
-```
-
-
-
-####3. Do you like Docker? Me too!
+#### Do you like Docker? Me too!
 
 Just run this command in project catalog:
 ```
 docker-compose run
 ```
 
-###That's all! Now you can start to use app!!!
 
-Tests
------
+How it works?
+=============
 
-The project includes Behat test. Command to run all scenarios:
+To fetch data with email you must set property: `email_service_host` - it's the endpoint returned email list in JSON format, for example:
 ```
-bin/behat
+[
+    {
+        "id":1,
+        "email":"email1@example.pl"
+    },
+    {
+        "id":2,
+        "email":"email2@example.pl"
+    }
+]
 ```
+It is important that the response should contain  property `email`
 
-To run PHPSpec:
-```
-bin/phpspec run
-```
+You can use following commands:
+ `emailservice:synchronize` - to synchronize local database with addresses email fetch from external service
+ `emailservice:send` - to send emails to address stored in db
 
-In the project I use static analysis  tools:
-- PHP_CodeSniffer
-- PHP Depend
-- Copy/Paste Detector
-- PHP Mess Detector
-
-To to execute all tests run build task with Ant tools:
-```
-ant build
-```
-
-Endpoint documentation:
------------------------
-
-| Method | Path         |  Description                     |
-|--------|--------------|----------------------------------|
-| GET    | /            |  Only for test API               |
-| GET    | /emails      |  Return list of email address    |
-| GET    | /emails/{id} |  Return single email address     |             
-| POST   | /emails      |  Create new email address        |             
-| DELETE | /emails/{id} |  Delete email address            |        
      
 Apache Kafka implement
 ======================
 
-This microservice is adapted to work with Apache Kafka. When new email appear in system application automaticly report status "CHANGED" to Kafka.
-To enable connetion you must set a few parameters:
+This microservice is adapted to work with Apache Kafka. 
+
+To enable connection you must set a few parameters:
 ```
 kafka_enable 
 kafka_host

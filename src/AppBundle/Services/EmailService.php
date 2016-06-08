@@ -52,11 +52,10 @@ class EmailService
 
     public function fetchData()
     {
-        $res = $this->client->request('GET', $this->host.'/emails');
+        $res = $this->client->request('GET', $this->host);
         if($res->getStatusCode() != 200){
             return;
         }
-
         return $res->getBody()->getContents();
     }
 }
