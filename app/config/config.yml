@@ -2,7 +2,7 @@ imports:
     - { resource: parameters.yml }
 
 services:
-    app.kafka_service:
+    app.email_service:
         class:     AppBundle\Services\EmailService
         arguments:
             - %email_service_host%
