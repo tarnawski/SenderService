@@ -9,6 +9,7 @@
   "require": {
     "ext-pdo_sqlite": "*",
     "symfony/symfony": "~3.0",
+    "symfony/swiftmailer-bundle": "^2.3",
     "symfony/framework-bundle": "^3.0",
     "sensio/framework-extra-bundle": "^3.0",
     "incenteev/composer-parameter-handler": "~2.1",

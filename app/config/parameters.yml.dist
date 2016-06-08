@@ -12,6 +12,13 @@ parameters:
 
     email_service_host: 10.0.0.202
 
+    mailer_transport:   smtp
+    mailer_host:        poczta.o2.pl
+    mailer_port:        465
+    mailer_username:    ~
+    mailer_password:    ~
+    mailer_from:        tarnawski@go2.pl
+
     kafka_enable: false
     kafka_host: 10.0.0.201
     kafka_port: 9092

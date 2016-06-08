@@ -12,6 +12,13 @@ services:
             - "@doctrine.orm.entity_manager"
             - %email_service_host%
 
+    app.send_service:
+        class:     AppBundle\Services\SendService
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - '@mailer'
+            - %mailer_from%
+
 framework:
     secret: '%secret_key%'
     form: ~
@@ -21,6 +28,15 @@ framework:
     serializer:
         enabled: true
         enable_annotations: true
+
+swiftmailer:
+    transport:  "%mailer_transport%"
+    host:       "%mailer_host%"
+    port:       "%mailer_port%"
+    encryption: "ssl"
+    username:   "%mailer_username%"
+    password:   "%mailer_password%"
+    spool:     { type: memory }
 
 doctrine:
     dbal:
@@ -35,3 +51,4 @@ doctrine:
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
+
