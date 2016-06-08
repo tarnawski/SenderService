@@ -26,6 +26,12 @@ class Email
     private $email;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     * @Groups({"default"})
+     */
+    private $send;
+
+    /**
      * @return int
      */
     public function getId()
@@ -47,5 +53,21 @@ class Email
     public function setEmail($email)
     {
         $this->email = $email;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isSend()
+    {
+        return $this->send;
+    }
+
+    /**
+     * @param boolean $send
+     */
+    public function setSend($send)
+    {
+        $this->send = $send;
     }
 }

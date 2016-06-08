@@ -2,9 +2,14 @@ imports:
     - { resource: parameters.yml }
 
 services:
+    guzzle.http.client:
+        class: GuzzleHttp\Client
+
     app.email_service:
         class:     AppBundle\Services\EmailService
         arguments:
+            - '@guzzle.http.client'
+            - "@doctrine.orm.entity_manager"
             - %email_service_host%
 
 framework:
