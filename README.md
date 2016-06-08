@@ -4,8 +4,8 @@ It's self learning project to get knowledge with microservices.
 
 This application is part of architectural services consisting of:
 - SenderService (this)
-- EmailService `https://github.com/tarnawski/symfony-microkernel.git`
-- Kafka `https://github.com/tarnawski/kafka.git`
+- EmailService `https://github.com/tarnawski/EmailService.git`
+- Kafka `https://github.com/tarnawski/KafkaService.git`
 
 ## Flow:    
 
