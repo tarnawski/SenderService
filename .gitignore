@@ -1,0 +1,12 @@
+/app/config/parameters.yml
+!/app/cache/.gitkeep
+/app/cache/*
+!/app/logs/.gitkeep
+/app/logs/*
+/app/build
+/vendor/
+/bin/*
+!/bin/console
+/vagrant/.vagrant
+sqlite
+composer.phar

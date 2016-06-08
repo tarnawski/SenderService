@@ -1,0 +1,18 @@
+parameters:
+    locale: pl
+    secret_key: SecretToken
+
+    database_driver:    pdo_sqlite
+    database_host:      ~
+    database_port:      ~
+    database_name:      sqlite
+    database_path:      sqlite
+    database_user:      ~
+    database_password:  ~
+
+    email_service_host: 10.0.0.202
+
+    kafka_enable: false
+    kafka_host: 10.0.0.201
+    kafka_port: 9092
+    kafka_topic: test
